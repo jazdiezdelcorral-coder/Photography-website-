@@ -140,7 +140,7 @@ if (albumList) {
   albumList.innerHTML = ALBUMS.map((a, i) => {
     const cover = a.photos[a.cover || 0] || a.photos[0];
     return `
-    <a class="album-tile" href="album.html?id=${encodeURIComponent(a.id)}"${a.theme ? ` data-theme="${esc(a.theme)}"` : ""}>
+    <a class="album-tile" href="album.html#${encodeURIComponent(a.id)}"${a.theme ? ` data-theme="${esc(a.theme)}"` : ""}>
       <div class="album-cover">${cover ? `<img loading="lazy" src="${esc(cover.src)}" alt="">` : ""}</div>
       <p class="eyebrow">Album ${pad(i + 1)}</p>
       <h2>${esc(a.title)}</h2>
@@ -152,7 +152,9 @@ if (albumList) {
 // ---------- Album page ----------
 const albumPhotos = $("#album-photos");
 if (albumPhotos) {
-  const id = new URLSearchParams(location.search).get("id");
+  // album is chosen by the part after # (album.html#trains); old ?id= links still work
+  const id = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get("id");
+  window.addEventListener("hashchange", () => { location.reload(); window.scrollTo(0, 0); });
   const i = Math.max(0, ALBUMS.findIndex(a => a.id === id));
   const a = ALBUMS[i];
   if (a.theme) document.body.dataset.album = a.theme;
@@ -174,9 +176,9 @@ if (albumPhotos) {
 
   const prev = ALBUMS[i - 1], next = ALBUMS[i + 1];
   $("#album-nav").innerHTML = `
-    ${prev ? `<a href="album.html?id=${encodeURIComponent(prev.id)}">← ${esc(prev.title)}</a>` : "<span></span>"}
+    ${prev ? `<a href="album.html#${encodeURIComponent(prev.id)}">← ${esc(prev.title)}</a>` : "<span></span>"}
     <a href="personal.html">All albums</a>
-    ${next ? `<a href="album.html?id=${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
+    ${next ? `<a href="album.html#${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
 }
 
 // ---------- Photo walks page ----------
