@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Name — Photography</title>
-  <meta name="description" content="Photography portfolio: landscapes, portraits and street photography.">
+  <title>Your Name — Photography & Photo Walks</title>
+  <meta name="description" content="Photography and honest photo walks through Kolkata and Shantiniketan.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,89 +12,65 @@
 </head>
 <body>
   <header class="site-header">
-    <a href="#top" class="logo">Your Name</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
+    <a href="index.html" class="logo">Your Name</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav">
-      <a href="#portfolio">Portfolio</a>
+      <a href="photography.html">Photography</a>
+      <a href="walks.html">Photo Walks</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <main id="top">
+  <main>
     <section class="hero">
-      <img class="hero-img" src="https://picsum.photos/id/1018/2000/1200" alt="Mountain landscape at dawn">
+      <img class="hero-img" src="https://picsum.photos/id/1067/2000/1200?grayscale" alt="Street in Kolkata">
       <div class="hero-text">
-        <p class="eyebrow">Photography</p>
-        <h1>Capturing light,<br>one frame at a time.</h1>
-        <a href="#portfolio" class="btn">View portfolio</a>
+        <p class="eyebrow">Kolkata · Shantiniketan</p>
+        <h1>Photographs, and the streets<br>they came from.</h1>
+        <p class="hero-sub">I'm a 20-year-old photographer. Look at my work — or come walk the city with me.</p>
       </div>
     </section>
 
-    <section id="portfolio" class="section">
-      <h2>Portfolio</h2>
-      <div class="filters" role="group" aria-label="Filter photos">
-        <button class="filter active" data-filter="all">All</button>
-        <button class="filter" data-filter="landscape">Landscape</button>
-        <button class="filter" data-filter="portrait">Portrait</button>
-        <button class="filter" data-filter="street">Street</button>
-      </div>
-
-      <!-- Replace src with your own photos, e.g. images/my-photo.jpg -->
-      <div class="gallery">
-        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1015/900/600" alt="River valley"></figure>
-        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/64/600/900" alt="Portrait"></figure>
-        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1067/900/600" alt="City street"></figure>
-        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1036/600/900" alt="Snowy forest"></figure>
-        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/91/900/600" alt="Portrait outdoors"></figure>
-        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1048/900/600" alt="Urban architecture"></figure>
-        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1043/900/600" alt="Coastline"></figure>
-        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/338/600/900" alt="Studio portrait"></figure>
-        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1056/600/900" alt="Night street"></figure>
-        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1039/900/600" alt="Waterfall"></figure>
-        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1078/900/600" alt="Market scene"></figure>
-        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/177/900/600" alt="Candid portrait"></figure>
-      </div>
+    <section class="section split-cards">
+      <a class="path-card" href="photography.html">
+        <img src="https://picsum.photos/id/64/900/1100?grayscale" alt="">
+        <div>
+          <p class="eyebrow">01</p>
+          <h2>My Photography</h2>
+          <p>Black &amp; white and colour work, exhibitions, prints for sale and commissions.</p>
+          <span class="btn">See the work</span>
+        </div>
+      </a>
+      <a class="path-card" href="walks.html">
+        <img src="https://picsum.photos/id/1078/900/1100" alt="">
+        <div>
+          <p class="eyebrow">02</p>
+          <h2>Photo Walks</h2>
+          <p>Kolkata, in its honest form. Buses, lanes, chai, history — and we take photos the whole way.</p>
+          <span class="btn">Join a walk</span>
+        </div>
+      </a>
     </section>
 
     <section id="about" class="section about">
-      <img loading="lazy" src="https://picsum.photos/id/250/700/850" alt="Photographer with camera">
+      <img loading="lazy" src="https://picsum.photos/id/250/700/850" alt="Me with my camera">
       <div>
-        <h2>About me</h2>
-        <p>Hi, I'm <strong>Your Name</strong>, a photographer based in Your City. I love chasing golden-hour light in the mountains, telling stories through portraits, and finding quiet moments on busy streets.</p>
-        <p>Available for portraits, events, and commissioned work. Prints of my photos are available on request.</p>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact">
-      <h2>Get in touch</h2>
-      <p>Have a project in mind or want a print? Send me a message.</p>
-      <!-- To receive messages, replace the email below (or use a service like Formspree). -->
-      <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
-        <label>Name<input type="text" name="name" required></label>
-        <label>Email<input type="email" name="email" required></label>
-        <label>Message<textarea name="message" rows="5" required></textarea></label>
-        <button type="submit" class="btn">Send message</button>
-      </form>
-      <div class="socials">
-        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-        <a href="mailto:you@example.com">Email</a>
+        <h2>Hi, I'm Your Name.</h2>
+        <p>I'm 20, I grew up between Kolkata and Shantiniketan, and I don't go anywhere without a camera.</p>
+        <p>I shoot mostly on the street — people, light, the in-between moments. Some of it ends up on gallery walls, some of it in prints people take home, and a lot of it comes from walking the city with strangers who become friends by the end of the day.</p>
+        <p>I'm honest about what I show you. No filters on the city, no Uber bubble. Just the real thing.</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Your Name. All photos are my own.</p>
+    <div class="footer-links">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p>&copy; <span class="year"></span> Your Name. All photos are my own.</p>
   </footer>
-
-  <div class="lightbox" hidden>
-    <button class="lb-close" aria-label="Close">&times;</button>
-    <button class="lb-prev" aria-label="Previous photo">&#8249;</button>
-    <img alt="">
-    <button class="lb-next" aria-label="Next photo">&#8250;</button>
-  </div>
 
   <script src="script.js"></script>
 </body>

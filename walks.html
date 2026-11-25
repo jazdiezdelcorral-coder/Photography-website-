@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Walks — Kolkata, in its honest form</title>
+  <meta name="description" content="Honest photo walks through Kolkata and Shantiniketan by bus, ferry and foot. Take photos, hear the history, see the real city.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="walks-page">
+  <header class="site-header">
+    <a href="index.html" class="logo">Your Name</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav">
+      <a href="photography.html">Photography</a>
+      <a href="walks.html" class="current">Photo Walks</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero short">
+      <img class="hero-img" src="https://picsum.photos/id/1078/2000/1200" alt="Kolkata street at dawn">
+      <div class="hero-text">
+        <p class="eyebrow">02 — Photo Walks</p>
+        <h1>Kolkata,<br>in its honest form.</h1>
+        <nav class="subnav">
+          <a href="#join">Join a walk</a>
+          <a href="#stories">Walk stories</a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ============ JOIN A WALK ============ -->
+    <section id="join" class="section">
+      <div class="pitch">
+        <h2>Not a tour. A day out with someone who lives here.</h2>
+        <p>I'm 20, I'm a photographer, and I'll show you the Kolkata most people actually live in — not the one from the back of an Uber. We take the bus. We take the ferry. We eat where people eat. I'll tell you a bit of the history of every place we stop, show you where to point your camera, and tell you honestly where to be careful.</p>
+        <p>Bring any camera — a phone is fine. By the end you'll have photos you're proud of, and you'll have seen the city properly.</p>
+      </div>
+
+      <h3 class="sub">The walks</h3>
+      <div class="walk-grid" id="walk-list"></div>
+
+      <div class="incl-grid">
+        <div>
+          <h3 class="sub">What you get</h3>
+          <ul class="ticks">
+            <li>Me as your guide for the whole walk</li>
+            <li>Local transport the way locals use it — bus, tram, ferry, local train</li>
+            <li>The history and stories behind each stop</li>
+            <li>Photography tips as we go — composition, light, how to photograph people respectfully</li>
+            <li>Honest safety advice: where to watch your bag, what to avoid, what's fine</li>
+            <li>Photos <em>of you</em> on the walk, sent afterwards</li>
+            <li>Chai stop included</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="sub">What I don't do</h3>
+          <ul class="crosses">
+            <li>No Ubers, no AC coaches, no hotel pickups — we meet at a bus stop or station</li>
+            <li>No "poverty tourism" — we photograph people with respect, and we ask</li>
+            <li>No staged or polished version of the city</li>
+            <li>Meals beyond chai, transport fares and entry tickets are paid by you (they're cheap — I'll tell you what to carry)</li>
+            <li>Not a camera workshop with rented gear — bring your own</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="sub">How it works</h3>
+      <ol class="steps">
+        <li><strong>Message me</strong> with the walk, date and how many people.</li>
+        <li><strong>I confirm on WhatsApp</strong> and send the meeting point and what to bring.</li>
+        <li><strong>We walk.</strong> Groups are small — up to 6 people.</li>
+        <li><strong>A few days later</strong> I send the photos I took of you. If one of yours or mine makes it into an exhibition, I'll ask you first.</li>
+      </ol>
+
+      <h3 class="sub">Questions</h3>
+      <div class="faq">
+        <details><summary>Is it safe?</summary><p>Yes — these are areas people live and work in every day. I'll tell you honestly where to keep your phone in your pocket and how to dress. If something isn't a good idea, I'll say so.</p></details>
+        <details><summary>Do I need a proper camera?</summary><p>No. A phone is completely fine. If you have a camera, bring it and I'll help you with settings.</p></details>
+        <details><summary>How much walking is there?</summary><p>A fair bit, plus getting on and off buses. Wear comfortable shoes. Tell me beforehand if you need it slower — we'll adjust.</p></details>
+        <details><summary>Can I book a private walk?</summary><p>Yes — just you, your friends or family. Message me for a price.</p></details>
+        <details><summary>What if it rains?</summary><p>Monsoon Kolkata is beautiful to photograph. If it's really bad we reschedule, free.</p></details>
+      </div>
+
+      <div id="book" class="book">
+        <h3 class="sub">Book / ask a question</h3>
+        <p class="hint">Fastest is WhatsApp: <a href="https://wa.me/910000000000" target="_blank" rel="noopener">+91 00000 00000</a>. Or fill this in:</p>
+        <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
+          <div class="row">
+            <label>Name<input type="text" name="name" required></label>
+            <label>Email or WhatsApp<input type="text" name="contact" required></label>
+          </div>
+          <div class="row">
+            <label>Walk<select name="walk" id="walk-select"></select></label>
+            <label>Preferred date<input type="date" name="date"></label>
+          </div>
+          <label>How many people?<input type="number" name="people" min="1" max="6" value="1"></label>
+          <label>Anything I should know?<textarea name="message" rows="4"></textarea></label>
+          <button type="submit" class="btn">Send request</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ WALK STORIES ============ -->
+    <section id="stories" class="section">
+      <h2>Walk stories</h2>
+      <p class="lede">Photos from the walks — who I was with, why they came, and what I was thinking when I pressed the shutter.</p>
+      <div class="stories" id="story-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p>&copy; <span class="year"></span> Your Name. All photos are my own.</p>
+  </footer>
+
+  <div class="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous photo">&#8249;</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lb-next" aria-label="Next photo">&#8250;</button>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
