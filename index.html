@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Name — Photography</title>
+  <meta name="description" content="Photography portfolio: landscapes, portraits and street photography.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="#top" class="logo">Your Name</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <nav class="nav">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img class="hero-img" src="https://picsum.photos/id/1018/2000/1200" alt="Mountain landscape at dawn">
+      <div class="hero-text">
+        <p class="eyebrow">Photography</p>
+        <h1>Capturing light,<br>one frame at a time.</h1>
+        <a href="#portfolio" class="btn">View portfolio</a>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section">
+      <h2>Portfolio</h2>
+      <div class="filters" role="group" aria-label="Filter photos">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="landscape">Landscape</button>
+        <button class="filter" data-filter="portrait">Portrait</button>
+        <button class="filter" data-filter="street">Street</button>
+      </div>
+
+      <!-- Replace src with your own photos, e.g. images/my-photo.jpg -->
+      <div class="gallery">
+        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1015/900/600" alt="River valley"></figure>
+        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/64/600/900" alt="Portrait"></figure>
+        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1067/900/600" alt="City street"></figure>
+        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1036/600/900" alt="Snowy forest"></figure>
+        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/91/900/600" alt="Portrait outdoors"></figure>
+        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1048/900/600" alt="Urban architecture"></figure>
+        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1043/900/600" alt="Coastline"></figure>
+        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/338/600/900" alt="Studio portrait"></figure>
+        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1056/600/900" alt="Night street"></figure>
+        <figure data-category="landscape"><img loading="lazy" src="https://picsum.photos/id/1039/900/600" alt="Waterfall"></figure>
+        <figure data-category="street"><img loading="lazy" src="https://picsum.photos/id/1078/900/600" alt="Market scene"></figure>
+        <figure data-category="portrait"><img loading="lazy" src="https://picsum.photos/id/177/900/600" alt="Candid portrait"></figure>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <img loading="lazy" src="https://picsum.photos/id/250/700/850" alt="Photographer with camera">
+      <div>
+        <h2>About me</h2>
+        <p>Hi, I'm <strong>Your Name</strong>, a photographer based in Your City. I love chasing golden-hour light in the mountains, telling stories through portraits, and finding quiet moments on busy streets.</p>
+        <p>Available for portraits, events, and commissioned work. Prints of my photos are available on request.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2>Get in touch</h2>
+      <p>Have a project in mind or want a print? Send me a message.</p>
+      <!-- To receive messages, replace the email below (or use a service like Formspree). -->
+      <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
+        <label>Name<input type="text" name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Message<textarea name="message" rows="5" required></textarea></label>
+        <button type="submit" class="btn">Send message</button>
+      </form>
+      <div class="socials">
+        <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:you@example.com">Email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Your Name. All photos are my own.</p>
+  </footer>
+
+  <div class="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous photo">&#8249;</button>
+    <img alt="">
+    <button class="lb-next" aria-label="Next photo">&#8250;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
