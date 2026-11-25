@@ -336,6 +336,7 @@ h3.sub { font-size: 1.9rem; margin: 4rem 0 1.25rem; }
 .lightbox figcaption { display: grid; text-align: center; gap: .15rem; max-width: 600px; color: #bbb; font-size: .9rem; padding: 0 1rem; }
 .lightbox figcaption strong { color: #fff; font-family: var(--serif); font-size: 1.3rem; font-weight: 400; }
 .lightbox .note { font-style: italic; margin-top: .3rem; }
+.lightbox .exif { color: #d8b46a; } /* stays gold on every album */
 .lightbox button { position: absolute; background: none; border: 0; color: #eee; font-size: 3rem; cursor: pointer; padding: 1rem; line-height: 1; z-index: 1; }
 .lightbox button:hover { color: var(--accent); }
 .lb-close { top: .5rem; right: 1rem; }

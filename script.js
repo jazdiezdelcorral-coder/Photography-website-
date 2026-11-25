@@ -87,8 +87,8 @@ window.addEventListener("scroll", () => wallUnzoom(), { passive: true });
 
 function buildWall(wall, photos, items) {
   wall.innerHTML = photos.map((p, j) => `
-    <figure data-i="${j}" tabindex="0" role="button" aria-label="Open ${esc(p.title || "photo")}">
-      <i></i><img src="${esc(p.src)}" alt="${esc(p.title || "")}" ${j > 11 ? 'loading="lazy"' : ""}>
+    <figure data-i="${j}" tabindex="0" role="button" aria-label="Open ${esc(p.title || p.alt || "photo")}">
+      <i></i><img src="${esc(p.src)}" alt="${esc(p.alt || p.title || "")}" ${j > 11 ? 'loading="lazy"' : ""}>
       ${p.title ? `<figcaption>${esc(p.title)}</figcaption>` : ""}
     </figure>`).join("");
 
@@ -225,7 +225,7 @@ if (albumPhotos) {
     $("#album-count").textContent = a.photos.length + " photos";
 
     const items = a.photos.map(p => ({
-      src: p.src, alt: p.title,
+      src: p.src, alt: p.alt || p.title,
       caption: `${p.title ? `<strong>${esc(p.title)}</strong>` : ""}
         ${p.place || p.year ? `<span>${esc([p.place, p.year].filter(Boolean).join(", "))}</span>` : ""}
         ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}

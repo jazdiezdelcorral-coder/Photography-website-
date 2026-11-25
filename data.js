@@ -30,7 +30,8 @@ const SITE = {
 //
 // To add a photo: put the file in images/ and add a line like
 //   { src: "images/howrah.jpg", title: "Howrah, 6am", shutter: "1/250s", aperture: "f/8", iso: "200", focal: "35mm", place: "Howrah", year: "2026" },
-// Only src is required. "cover" = which photo (counting from 0) is shown on the album tile.
+// Only src is required. "title" shows on hover and in full screen; "alt" describes the photo for screen readers.
+// "cover" = which photo (counting from 0) is shown on the album tile.
 const ALBUMS = [
   {
     id: "trains",
@@ -40,14 +41,16 @@ const ALBUMS = [
     blurb: "Local trains, long-distance trains, stations, the people waiting on platforms.",
     cover: 0,
     photos: [
-      { src: "https://picsum.photos/id/1067/900/600?grayscale", title: "Platform 9, Howrah", shutter: "1/250s", aperture: "f/8", iso: "400", focal: "35mm", place: "Howrah Station", year: "2026" },
-      { src: "https://picsum.photos/id/1048/600/900", title: "Window seat", shutter: "1/500s", aperture: "f/4", iso: "200", place: "Bardhaman local", year: "2026" },
-      { src: "https://picsum.photos/id/1056/900/600?grayscale", title: "Night arrival", shutter: "1/30s", aperture: "f/1.8", iso: "3200", year: "2025" },
-      { src: "https://picsum.photos/id/1078/900/600", title: "Chai at the door", shutter: "1/160s", aperture: "f/2.8", iso: "400", year: "2025" },
-      { src: "https://picsum.photos/id/1031/1800/700", title: "Coach, panorama" },
-      { src: "https://picsum.photos/id/1060/800/1200?grayscale", title: "Ticket counter" },
-      { src: "https://picsum.photos/id/1011/1600/900", title: "Crossing the Damodar" },
-      { src: "https://picsum.photos/id/177/800/800?grayscale", title: "Hawker" },
+      { src: "images/trains-01.jpg", shutter: "1/20s", aperture: "f/1.9", iso: "160", year: "2026", alt: "Through the window of a yellow coach" },
+      { src: "images/trains-02.jpg", shutter: "1/8s", aperture: "f/1.9", iso: "500", year: "2024", alt: "A man looks back as a train blurs past the platform at night" },
+      { src: "images/trains-03.jpg", alt: "A silhouette standing in a lit train doorway" },
+      { src: "images/trains-04.jpg", shutter: "1/20s", aperture: "f/1.9", iso: "2156", year: "2025", alt: "Faces pressed behind the barred windows of a crowded train" },
+      { src: "images/trains-05.jpg", shutter: "1/15s", aperture: "f/6.3", iso: "80", year: "2025", alt: "Black and white: a train rushing past with someone at the door" },
+      { src: "images/trains-06.jpg", shutter: "1/800s", aperture: "f/1.9", iso: "125", year: "2026", alt: "Orange light falling across coach windows" },
+      { src: "images/trains-07.jpg", shutter: "1/12s", aperture: "f/2.2", iso: "2500", year: "2024", alt: "Sweeping the platform as a train streaks by" },
+      { src: "images/trains-08.jpg", shutter: "1/180s", aperture: "f/1.7", iso: "100", year: "2022", alt: "A dark coach corridor with a red-lit window at the end" },
+      { src: "images/trains-09.jpg", shutter: "1/6s", aperture: "f/1.9", iso: "125", year: "2025", alt: "Black and white: a crowded platform at night" },
+      { src: "images/trains-10.jpg", shutter: "1/200s", aperture: "f/1.9", iso: "50", year: "2026", alt: "A single lit window in the dark" },
     ],
   },
   {
