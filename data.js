@@ -12,7 +12,7 @@ const SITE = {
   about: [
     "In the Basque Country, aúpa is what you shout to cheer someone on. It's also my name.",
     "I'm 20, half Basque, half Indian, and I grew up in India.",
-    "I photograph what I like, the way I see it. You might look at a taxi and see one thing. I see something else, and that's the photo I take.",
+    "I photograph what I like, the way I see it.",
   ],
   email: "you@example.com",
   instagram: "https://instagram.com/",
