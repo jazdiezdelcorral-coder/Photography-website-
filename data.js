@@ -6,7 +6,7 @@
 
 // ---------- YOU ----------
 const SITE = {
-  name: "Your Name",
+  name: "Aúpa",
   tagline: "20. Kolkata. Always carrying a camera.",
   email: "you@example.com",
   instagram: "https://instagram.com/",
