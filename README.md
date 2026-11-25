@@ -19,7 +19,7 @@ Home
   - New album: copy an album block, give it a new `id` (lowercase, dashes), `title` and `blurb`.
   - Album background: `theme: "taxi" | "train" | "slow-shutter" | "red-earth"` (leave out for black & gold). Train albums also take `board:` text.
   - New photo: put the file in `images/`, then add `{ src: "images/file.jpg", title: "...", shutter: "...", ... }` to an album.
-- **`styles.css`**: colours. Four looks are at the top (Darkroom, Newsprint, Taxi, Red Earth).
+- **`styles.css`**: colours. The site colours are at the top; each album background is under "ALBUM BACKGROUNDS".
 
 ## Put it online (free, GitHub Pages)
 Repo **Settings → Pages → Deploy from a branch**, pick the branch and `/ (root)`, save.
