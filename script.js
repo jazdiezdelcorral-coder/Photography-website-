@@ -30,6 +30,11 @@ $$("form[action^='mailto:']").forEach(f => (f.action = "mailto:" + SITE.email));
 if (page !== "home") document.title = document.title + " — " + SITE.name;
 else document.title = SITE.name + " — " + document.title;
 
+// remember the header's height so sticky bars can sit right under it
+const setHeaderHeight = () => document.documentElement.style.setProperty("--hh", header.offsetHeight + "px");
+setHeaderHeight();
+window.addEventListener("resize", setHeaderHeight);
+
 const solid = document.body.classList.contains("solid-header");
 const onScroll = () => header.classList.toggle("scrolled", solid || window.scrollY > 50);
 window.addEventListener("scroll", onScroll);
@@ -67,6 +72,8 @@ if (lb) {
 // Rows of photos that each keep their own shape. With a mouse: hovering zooms a photo,
 // sized and anchored so it always stays fully on screen. On touch: tap opens full screen.
 const canHover = matchMedia("(hover: hover) and (pointer: fine)");
+let wallUnzoom = () => {};
+window.addEventListener("scroll", () => wallUnzoom(), { passive: true });
 
 function buildWall(wall, photos, items) {
   wall.innerHTML = photos.map((p, j) => `
@@ -86,7 +93,8 @@ function buildWall(wall, photos, items) {
     if (!fig.classList.contains("ready")) return;
     unzoom();
     const r = fig.getBoundingClientRect();
-    const m = 16, top = header.getBoundingClientRect().bottom + m;
+    const bar = $(".album-bar");
+    const m = 16, top = Math.max(header.getBoundingClientRect().bottom, bar ? bar.getBoundingClientRect().bottom : 0) + m;
     const vw = document.documentElement.clientWidth, vh = window.innerHeight;
     // as big as possible up to 2x, but never bigger than the visible screen
     const z = Math.min(2, (vw - 2 * m) / r.width, (vh - top - m) / r.height);
@@ -102,7 +110,7 @@ function buildWall(wall, photos, items) {
     wall.classList.add("zooming");
     current = fig;
   }
-  window.addEventListener("scroll", unzoom, { passive: true });
+  wallUnzoom = unzoom;
 
   $$("figure", wall).forEach(fig => {
     const img = $("img", fig);
@@ -152,33 +160,87 @@ if (albumList) {
 // ---------- Album page ----------
 const albumPhotos = $("#album-photos");
 if (albumPhotos) {
-  // album is chosen by the part after # (album.html#trains); old ?id= links still work
-  const id = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get("id");
-  window.addEventListener("hashchange", () => { location.reload(); window.scrollTo(0, 0); });
-  const i = Math.max(0, ALBUMS.findIndex(a => a.id === id));
-  const a = ALBUMS[i];
-  if (a.theme) document.body.dataset.album = a.theme;
-  if (a.board) { $("#album-board").textContent = a.board; $("#album-board").hidden = false; }
-  document.title = a.title + " — " + SITE.name;
-  $("#album-num").textContent = "Album " + pad(i + 1);
-  $("#album-title").textContent = a.title;
-  $("#album-blurb").textContent = a.blurb || "";
-  $("#album-count").textContent = a.photos.length + " photos";
+  // The album is chosen by the part after # (album.html#trains). Old ?id= links still work.
+  const currentId = () => decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get("id");
 
-  const items = a.photos.map(p => ({
-    src: p.src, alt: p.title,
-    caption: `${p.title ? `<strong>${esc(p.title)}</strong>` : ""}
-      ${p.place || p.year ? `<span>${esc([p.place, p.year].filter(Boolean).join(", "))}</span>` : ""}
-      ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}
-      ${p.note ? `<span class="note">${esc(p.note)}</span>` : ""}`,
-  }));
-  buildWall(albumPhotos, a.photos, items);
+  // Album switcher strip: every album, always one tap away.
+  const track = $("#album-bar");
+  track.innerHTML = `<a class="bar-pill all" href="personal.html"><span class="grid-icon" aria-hidden="true"></span>All albums</a>` +
+    ALBUMS.map((a, i) => {
+      const cover = a.photos[a.cover || 0] || a.photos[0];
+      return `<a class="bar-pill" href="#${encodeURIComponent(a.id)}" data-id="${esc(a.id)}">
+        ${cover ? `<img src="${esc(cover.src)}" alt="">` : ""}<span class="n">${pad(i + 1)}</span>${esc(a.title)}</a>`;
+    }).join("");
 
-  const prev = ALBUMS[i - 1], next = ALBUMS[i + 1];
-  $("#album-nav").innerHTML = `
-    ${prev ? `<a href="album.html#${encodeURIComponent(prev.id)}">← ${esc(prev.title)}</a>` : "<span></span>"}
-    <a href="personal.html">All albums</a>
-    ${next ? `<a href="album.html#${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
+  // Arrows appear only when the albums don't all fit
+  const prevBtn = $(".bar-arrow.prev"), nextBtn = $(".bar-arrow.next");
+  const updateArrows = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    prevBtn.hidden = !canHover.matches || track.scrollLeft <= 2;
+    nextBtn.hidden = !canHover.matches || track.scrollLeft >= max - 2;
+  };
+  prevBtn.onclick = () => track.scrollBy({ left: -track.clientWidth * 0.7, behavior: "smooth" });
+  nextBtn.onclick = () => track.scrollBy({ left: track.clientWidth * 0.7, behavior: "smooth" });
+  track.addEventListener("scroll", updateArrows, { passive: true });
+  window.addEventListener("resize", updateArrows);
+
+  // Drag the strip sideways with a mouse (touch screens already swipe natively)
+  let drag = null;
+  track.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    drag = { x: e.clientX, left: track.scrollLeft, moved: false };
+  });
+  window.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (Math.abs(dx) > 5) { drag.moved = true; track.classList.add("dragging"); }
+    if (drag.moved) track.scrollLeft = drag.left - dx;
+  });
+  window.addEventListener("pointerup", () => { setTimeout(() => { drag = null; track.classList.remove("dragging"); }, 0); });
+  track.addEventListener("click", e => { if (drag && drag.moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+  track.addEventListener("dragstart", e => e.preventDefault());
+
+  function renderAlbum() {
+    const id = currentId();
+    const i = Math.max(0, ALBUMS.findIndex(a => a.id === id));
+    const a = ALBUMS[i];
+    if (a.theme) document.body.dataset.album = a.theme; else delete document.body.dataset.album;
+    const board = $("#album-board");
+    board.textContent = a.board || "";
+    board.hidden = !a.board;
+    document.title = a.title + " — " + SITE.name;
+    $("#album-num").textContent = "Album " + pad(i + 1);
+    $("#album-title").textContent = a.title;
+    $("#album-blurb").textContent = a.blurb || "";
+    $("#album-count").textContent = a.photos.length + " photos";
+
+    const items = a.photos.map(p => ({
+      src: p.src, alt: p.title,
+      caption: `${p.title ? `<strong>${esc(p.title)}</strong>` : ""}
+        ${p.place || p.year ? `<span>${esc([p.place, p.year].filter(Boolean).join(", "))}</span>` : ""}
+        ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}
+        ${p.note ? `<span class="note">${esc(p.note)}</span>` : ""}`,
+    }));
+    buildWall(albumPhotos, a.photos, items);
+
+    // highlight the current album in the strip and bring it into view
+    $$(".bar-pill[data-id]", track).forEach(p => {
+      const on = p.dataset.id === a.id;
+      p.classList.toggle("current", on);
+      if (on) { p.setAttribute("aria-current", "page"); track.scrollTo({ left: p.offsetLeft - (track.clientWidth - p.offsetWidth) / 2 }); }
+      else p.removeAttribute("aria-current");
+    });
+    updateArrows();
+
+    const prev = ALBUMS[i - 1], next = ALBUMS[i + 1];
+    $("#album-nav").innerHTML = `
+      ${prev ? `<a href="#${encodeURIComponent(prev.id)}">← ${esc(prev.title)}</a>` : "<span></span>"}
+      <a href="personal.html">All albums</a>
+      ${next ? `<a href="#${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
+  }
+
+  window.addEventListener("hashchange", () => { renderAlbum(); window.scrollTo(0, 0); });
+  renderAlbum();
 }
 
 // ---------- Photo walks page ----------
