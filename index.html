@@ -3,75 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your Name — Photography & Photo Walks</title>
-  <meta name="description" content="Photography and honest photo walks through Kolkata and Shantiniketan.">
+  <title>Photography & Photo Walks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <header class="site-header">
-    <a href="index.html" class="logo">Your Name</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav">
-      <a href="photography.html">Photography</a>
-      <a href="walks.html">Photo Walks</a>
-      <a href="#about">About</a>
-    </nav>
-  </header>
+<body data-page="home">
+  <header class="site-header"></header>
 
   <main>
     <section class="hero">
-      <img class="hero-img" src="https://picsum.photos/id/1067/2000/1200?grayscale" alt="Street in Kolkata">
+      <img class="hero-img" src="https://picsum.photos/id/1067/2000/1200?grayscale" alt="">
       <div class="hero-text">
-        <p class="eyebrow">Kolkata · Shantiniketan</p>
-        <h1>Photographs, and the streets<br>they came from.</h1>
-        <p class="hero-sub">I'm a 20-year-old photographer. Look at my work — or come walk the city with me.</p>
+        <h1 data-site="name">Your Name</h1>
+        <p class="hero-sub" data-site="tagline"></p>
       </div>
     </section>
 
-    <section class="section split-cards">
-      <a class="path-card" href="photography.html">
-        <img src="https://picsum.photos/id/64/900/1100?grayscale" alt="">
-        <div>
-          <p class="eyebrow">01</p>
-          <h2>My Photography</h2>
-          <p>Black &amp; white and colour work, exhibitions, prints for sale and commissions.</p>
-          <span class="btn">See the work</span>
-        </div>
-      </a>
-      <a class="path-card" href="walks.html">
-        <img src="https://picsum.photos/id/1078/900/1100" alt="">
-        <div>
-          <p class="eyebrow">02</p>
-          <h2>Photo Walks</h2>
-          <p>Kolkata, in its honest form. Buses, lanes, chai, history — and we take photos the whole way.</p>
-          <span class="btn">Join a walk</span>
-        </div>
-      </a>
-    </section>
-
-    <section id="about" class="section about">
-      <img loading="lazy" src="https://picsum.photos/id/250/700/850" alt="Me with my camera">
-      <div>
-        <h2>Hi, I'm Your Name.</h2>
-        <p>I'm 20, I grew up between Kolkata and Shantiniketan, and I don't go anywhere without a camera.</p>
-        <p>I shoot mostly on the street — people, light, the in-between moments. Some of it ends up on gallery walls, some of it in prints people take home, and a lot of it comes from walking the city with strangers who become friends by the end of the day.</p>
-        <p>I'm honest about what I show you. No filters on the city, no Uber bubble. Just the real thing.</p>
+    <section class="section">
+      <div class="home-tiles">
+        <a class="home-tile" href="photos.html"><span class="num">01</span><h2>Photos</h2><p>Albums of what I shoot.</p></a>
+        <a class="home-tile" href="walks.html"><span class="num">02</span><h2>Photo Walks</h2><p>Kolkata, in its honest form.</p></a>
+        <a class="home-tile" href="portfolio.html"><span class="num">03</span><h2>Portfolio</h2><p>Who I am, exhibitions, work.</p></a>
+        <a class="home-tile" href="shop.html"><span class="num">04</span><h2>Shop</h2><p>Prints and more.</p></a>
       </div>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="mailto:you@example.com">Email</a>
-      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
-    <p>&copy; <span class="year"></span> Your Name. All photos are my own.</p>
-  </footer>
-
+  <footer class="site-footer"></footer>
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

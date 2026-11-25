@@ -10,16 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="walks-page">
-  <header class="site-header">
-    <a href="index.html" class="logo">Your Name</a>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav">
-      <a href="photography.html">Photography</a>
-      <a href="walks.html" class="current">Photo Walks</a>
-      <a href="index.html#about">About</a>
-    </nav>
-  </header>
+<body class="walks-page" data-page="walks">
+  <header class="site-header"></header>
 
   <main>
     <section class="hero short">
@@ -89,7 +81,7 @@
 
       <div id="book" class="book">
         <h3 class="sub">Book / ask a question</h3>
-        <p class="hint">Fastest is WhatsApp: <a href="https://wa.me/910000000000" target="_blank" rel="noopener">+91 00000 00000</a>. Or fill this in:</p>
+        <p class="hint">Fastest is <a data-site="whatsapp" target="_blank" rel="noopener">WhatsApp</a>. Or fill this in:</p>
         <form class="contact-form" action="mailto:you@example.com" method="post" enctype="text/plain">
           <div class="row">
             <label>Name<input type="text" name="name" required></label>
@@ -114,14 +106,7 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="mailto:you@example.com">Email</a>
-      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
-    <p>&copy; <span class="year"></span> Your Name. All photos are my own.</p>
-  </footer>
+  <footer class="site-footer"></footer>
 
   <div class="lightbox" hidden>
     <button class="lb-close" aria-label="Close">&times;</button>
