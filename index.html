@@ -16,7 +16,7 @@
     <section class="hero">
       <img class="hero-img" src="https://picsum.photos/id/1067/2000/1200?grayscale" alt="">
       <div class="hero-text">
-        <h1 data-site="name">Aúpa</h1>
+        <h1><button class="name-btn" id="about-open" aria-haspopup="dialog"><span data-site="name">Aúpa</span><span class="name-plus" aria-hidden="true">+</span></button></h1>
         <p class="hero-sub" data-site="tagline"></p>
       </div>
     </section>
@@ -30,6 +30,17 @@
       </div>
     </section>
   </main>
+  <dialog class="about-pop" id="about-pop" aria-labelledby="about-name">
+    <button class="about-close" id="about-close" aria-label="Close">&times;</button>
+    <p class="eyebrow">Who's this?</p>
+    <h2 id="about-name" data-site="name">Aúpa</h2>
+    <div class="about-text" id="about-text"></div>
+    <div class="about-links">
+      <a href="photos.html">See my photos</a>
+      <a href="walks.html">Walk with me</a>
+    </div>
+  </dialog>
+
   <footer class="site-footer"></footer>
   <script src="data.js"></script>
   <script src="script.js"></script>

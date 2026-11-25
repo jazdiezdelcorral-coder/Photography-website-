@@ -68,6 +68,35 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
 .hero h1 { font-size: clamp(3rem, 9vw, 7rem); margin-bottom: 1rem; }
 .hero-sub { font-size: 1.1rem; opacity: .9; }
 
+/* Tap-my-name button + "Who's this?" pop-up */
+.name-btn { all: unset; cursor: pointer; display: inline-flex; align-items: flex-start; gap: .15em; position: relative; }
+.name-btn::after { content: ""; position: absolute; left: 0; right: .6em; bottom: .02em; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s; }
+.name-btn:hover::after, .name-btn:focus-visible::after { transform: scaleX(1); }
+.name-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.name-plus {
+  font-family: var(--sans); font-size: .22em; font-weight: 400; line-height: 1;
+  width: 1.7em; height: 1.7em; display: grid; place-items: center; margin-top: .5em;
+  border: 1px solid currentColor; border-radius: 50%; opacity: .8; transition: transform .3s, opacity .3s, color .3s;
+}
+.name-btn:hover .name-plus { transform: rotate(90deg); opacity: 1; color: var(--accent); }
+
+.about-pop {
+  margin: auto; width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32px); overflow: auto;
+  padding: 2.5rem; background: var(--bg); color: var(--fg); border: 1px solid var(--line);
+}
+.about-pop[open] { animation: pop-in .35s cubic-bezier(.2,.7,.2,1); }
+.about-pop::backdrop { background: rgba(0,0,0,.7); backdrop-filter: blur(4px); }
+@keyframes pop-in { from { opacity: 0; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) { .about-pop[open] { animation: none; } }
+.about-pop h2 { font-size: 3rem; margin-bottom: 1.25rem; }
+.about-text { display: grid; gap: .9rem; color: var(--soft); font-size: 1.05rem; }
+.about-links { display: flex; flex-wrap: wrap; gap: .75rem 1.75rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.about-links a { color: var(--accent); font-size: .8rem; letter-spacing: .15em; text-transform: uppercase; }
+.about-links a:hover { text-decoration: underline; }
+.about-close { position: absolute; top: .75rem; right: 1rem; background: none; border: 0; color: var(--muted); font-size: 2rem; cursor: pointer; line-height: 1; }
+.about-close:hover { color: var(--fg); }
+.about-pop { position: fixed; }
+
 .home-tiles { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
 .home-tile { padding: 2rem 1.5rem 2.5rem; border-right: 1px solid var(--line); transition: background .25s; }
 .home-tile:last-child { border-right: 0; }
@@ -327,6 +356,8 @@ h3.sub { font-size: 1.9rem; margin: 4rem 0 1.25rem; }
   .home-tile { border-bottom: 1px solid var(--line); }
   .home-tile:nth-child(2n) { border-right: 0; }
   .home-tile h2 { font-size: 1.7rem; }
+  .about-pop { padding: 2rem 1.25rem 1.5rem; }
+  .about-pop h2 { font-size: 2.4rem; }
   .choices, .incl-grid, .story, .contact-form .row { grid-template-columns: 1fr; }
   .choices { gap: 1rem; }
   .choice { aspect-ratio: 3/2; }

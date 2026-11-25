@@ -43,6 +43,16 @@ onScroll();
 const toggle = $(".nav-toggle"), nav = $(".nav");
 toggle.addEventListener("click", () => toggle.setAttribute("aria-expanded", nav.classList.toggle("open")));
 
+// ---------- "Who's this?" pop-up (tap the name on the home page) ----------
+const aboutPop = $("#about-pop");
+if (aboutPop) {
+  $("#about-text").innerHTML = (SITE.about || []).map(p => `<p>${esc(p)}</p>`).join("");
+  const openBtn = $("#about-open");
+  openBtn.addEventListener("click", () => aboutPop.showModal());
+  $("#about-close").addEventListener("click", () => aboutPop.close());
+  aboutPop.addEventListener("click", e => { if (e.target === aboutPop) aboutPop.close(); }); // tap outside to close
+}
+
 // ---------- Lightbox ----------
 const lb = $(".lightbox");
 let lbItems = [], lbIndex = 0;

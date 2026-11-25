@@ -8,6 +8,12 @@
 const SITE = {
   name: "Aúpa",
   tagline: "20. Kolkata. Always carrying a camera.",
+  // Shown when someone taps your name on the home page. One line per paragraph.
+  about: [
+    "In the Basque Country, aúpa is what you shout to cheer someone on. It's also my name.",
+    "I'm 20, half Basque and half Indian, raised in India, and I've had a camera in my hand for six years.",
+    "I photograph the things I can't stop going back to, and I show them honestly.",
+  ],
   email: "you@example.com",
   instagram: "https://instagram.com/",
   whatsapp: "910000000000", // 91 + your number, no spaces or +
