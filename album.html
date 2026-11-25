@@ -9,16 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="photos" class="solid-header">
+<body data-page="photos" class="solid-header album-page">
+  <div class="album-bg" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <header class="site-header"></header>
 
   <main class="page">
     <section class="page-head">
       <p class="eyebrow"><a href="photos.html">Photos</a> / <a href="personal.html">Personal</a> / <span id="album-num"></span></p>
+      <p class="board" id="album-board" hidden></p>
       <h1 id="album-title">Album</h1>
       <p class="lede" id="album-blurb"></p>
       <p class="meta" id="album-count"></p>
     </section>
+    <div class="livery" aria-hidden="true"><span></span><span></span></div>
     <section class="section">
       <div class="wall" id="album-photos"></div>
       <nav class="album-nav" id="album-nav"></nav>

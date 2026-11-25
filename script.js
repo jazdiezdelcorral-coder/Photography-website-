@@ -140,7 +140,7 @@ if (albumList) {
   albumList.innerHTML = ALBUMS.map((a, i) => {
     const cover = a.photos[a.cover || 0] || a.photos[0];
     return `
-    <a class="album-tile" href="album.html?id=${encodeURIComponent(a.id)}">
+    <a class="album-tile" href="album.html?id=${encodeURIComponent(a.id)}"${a.theme ? ` data-theme="${esc(a.theme)}"` : ""}>
       <div class="album-cover">${cover ? `<img loading="lazy" src="${esc(cover.src)}" alt="">` : ""}</div>
       <p class="eyebrow">Album ${pad(i + 1)}</p>
       <h2>${esc(a.title)}</h2>
@@ -155,6 +155,8 @@ if (albumPhotos) {
   const id = new URLSearchParams(location.search).get("id");
   const i = Math.max(0, ALBUMS.findIndex(a => a.id === id));
   const a = ALBUMS[i];
+  if (a.theme) document.body.dataset.album = a.theme;
+  if (a.board) { $("#album-board").textContent = a.board; $("#album-board").hidden = false; }
   document.title = a.title + " — " + SITE.name;
   $("#album-num").textContent = "Album " + pad(i + 1);
   $("#album-title").textContent = a.title;
