@@ -11,8 +11,8 @@ const SITE = {
   // Shown when someone taps your name on the home page. One line per paragraph.
   about: [
     "In the Basque Country, aúpa is what you shout to cheer someone on. It's also my name.",
-    "I'm 20, half Basque and half Indian, raised in India, and I've had a camera in my hand for six years.",
-    "I photograph the things I can't stop going back to, and I show them honestly.",
+    "I'm 20. Half of my family has Basque roots, though today they're spread across Spain, from Madrid and beyond. The other half is Indian, and India is where I was raised.",
+    "I carry a camera everywhere, whether it's my phone or my actual camera. I photograph the things I find unique, and I like to show them for what they are and how I see them.",
   ],
   email: "you@example.com",
   instagram: "https://instagram.com/",
