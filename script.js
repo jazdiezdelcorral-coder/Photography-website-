@@ -63,6 +63,77 @@ if (lb) {
   });
 }
 
+// ---------- Photo wall (album page) ----------
+// Rows of photos that each keep their own shape. With a mouse: hovering zooms a photo,
+// sized and anchored so it always stays fully on screen. On touch: tap opens full screen.
+const canHover = matchMedia("(hover: hover) and (pointer: fine)");
+
+function buildWall(wall, photos, items) {
+  wall.innerHTML = photos.map((p, j) => `
+    <figure data-i="${j}" tabindex="0" role="button" aria-label="Open ${esc(p.title || "photo")}">
+      <i></i><img src="${esc(p.src)}" alt="${esc(p.title || "")}" ${j > 11 ? 'loading="lazy"' : ""}>
+      ${p.title ? `<figcaption>${esc(p.title)}</figcaption>` : ""}
+    </figure>`).join("");
+
+  let current = null;
+  function unzoom() {
+    if (!current) return;
+    current.classList.remove("zoom");
+    wall.classList.remove("zooming");
+    current = null;
+  }
+  function zoom(fig) {
+    if (!fig.classList.contains("ready")) return;
+    unzoom();
+    const r = fig.getBoundingClientRect();
+    const m = 16, top = header.getBoundingClientRect().bottom + m;
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    // as big as possible up to 2x, but never bigger than the visible screen
+    const z = Math.min(2, (vw - 2 * m) / r.width, (vh - top - m) / r.height);
+    if (z < 1.1) return; // already big, no point zooming
+    // choose the zoom anchor so the enlarged photo stays inside the screen
+    const anchor = (start, size, min, max) => {
+      const lo = (start + size * z - max) / (z - 1), hi = (start - min) / (z - 1);
+      return Math.max(0, Math.min(Math.max(size / 2, lo), hi, size));
+    };
+    fig.style.transformOrigin = `${anchor(r.left, r.width, m, vw - m)}px ${anchor(r.top, r.height, top, vh - m)}px`;
+    fig.style.setProperty("--z", z.toFixed(3));
+    fig.classList.add("zoom");
+    wall.classList.add("zooming");
+    current = fig;
+  }
+  window.addEventListener("scroll", unzoom, { passive: true });
+
+  $$("figure", wall).forEach(fig => {
+    const img = $("img", fig);
+    const ready = () => {
+      fig.style.setProperty("--r", (img.naturalWidth / img.naturalHeight).toFixed(4));
+      fig.classList.add("ready");
+    };
+    if (img.complete && img.naturalWidth) ready();
+    else {
+      img.addEventListener("load", ready, { once: true });
+      img.addEventListener("error", () => (fig.hidden = true), { once: true }); // broken link: hide it
+    }
+    const open = () => { unzoom(); lbOpen(items, +fig.dataset.i); };
+    fig.addEventListener("click", open);
+    fig.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+    fig.addEventListener("mouseenter", () => canHover.matches && zoom(fig));
+    fig.addEventListener("mouseleave", unzoom);
+  });
+}
+
+// Swipe left/right in the full-screen view on phones
+if (lb) {
+  let sx = null;
+  lb.addEventListener("touchstart", e => (sx = e.touches[0].clientX), { passive: true });
+  lb.addEventListener("touchend", e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+  });
+}
+
 // ---------- Personal: album list ----------
 const albumList = $("#album-list");
 if (albumList) {
@@ -90,8 +161,6 @@ if (albumPhotos) {
   $("#album-blurb").textContent = a.blurb || "";
   $("#album-count").textContent = a.photos.length + " photos";
 
-  albumPhotos.innerHTML = a.photos.map((p, j) => `
-    <figure data-i="${j}"><img loading="lazy" src="${esc(p.src)}" alt="${esc(p.title || a.title)}"></figure>`).join("");
   const items = a.photos.map(p => ({
     src: p.src, alt: p.title,
     caption: `${p.title ? `<strong>${esc(p.title)}</strong>` : ""}
@@ -99,7 +168,7 @@ if (albumPhotos) {
       ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}
       ${p.note ? `<span class="note">${esc(p.note)}</span>` : ""}`,
   }));
-  $$("figure", albumPhotos).forEach(f => f.addEventListener("click", () => lbOpen(items, +f.dataset.i)));
+  buildWall(albumPhotos, a.photos, items);
 
   const prev = ALBUMS[i - 1], next = ALBUMS[i + 1];
   $("#album-nav").innerHTML = `
