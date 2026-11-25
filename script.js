@@ -152,7 +152,7 @@ if (lb) {
   });
 }
 
-// ---------- Personal: album list ----------
+// ---------- Photos: album list ----------
 const albumList = $("#album-list");
 if (albumList) {
   albumList.innerHTML = ALBUMS.map((a, i) => {
@@ -175,7 +175,7 @@ if (albumPhotos) {
 
   // Album switcher strip: every album, always one tap away.
   const track = $("#album-bar");
-  track.innerHTML = `<a class="bar-pill all" href="personal.html"><span class="grid-icon" aria-hidden="true"></span>All albums</a>` +
+  track.innerHTML = `<a class="bar-pill all" href="photos.html"><span class="grid-icon" aria-hidden="true"></span>All albums</a>` +
     ALBUMS.map((a, i) => {
       const cover = a.photos[a.cover || 0] || a.photos[0];
       return `<a class="bar-pill" href="#${encodeURIComponent(a.id)}" data-id="${esc(a.id)}">
@@ -245,7 +245,7 @@ if (albumPhotos) {
     const prev = ALBUMS[i - 1], next = ALBUMS[i + 1];
     $("#album-nav").innerHTML = `
       ${prev ? `<a href="#${encodeURIComponent(prev.id)}">← ${esc(prev.title)}</a>` : "<span></span>"}
-      <a href="personal.html">All albums</a>
+      <a href="photos.html">All albums</a>
       ${next ? `<a href="#${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
   }
 

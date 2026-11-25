@@ -19,7 +19,7 @@ const SITE = {
   whatsapp: "910000000000", // 91 + your number, no spaces or +
 };
 
-// ---------- ALBUMS (Photos → Personal) ----------
+// ---------- ALBUMS (Photos page) ----------
 // The things I keep coming back to. Each album can have its own background ("theme"):
 //   "taxi"          Kolkata taxi yellow with a red stripe
 //   "train"         Indian Railways coach: beige with red stripes + a destination board

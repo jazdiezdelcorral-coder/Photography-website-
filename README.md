@@ -4,12 +4,10 @@ My photography website: my photos, my photo walks in Kolkata & Shantiniketan, my
 ## How the site is laid out
 ```
 Home
-├── Photos
-│   ├── Personal  → albums (Trains, Slow Shutter, Taxis, Streets of Kolkata, Shantiniketan)
-│   │               └── each album opens a photo wall (hover to zoom, click for full screen)
-│   │                   with its own background: taxi yellow, train beige, light trails…
-│   └── Work      → coming soon
-├── Photo Walks   → (to be reworked)
+├── Photos        → albums (Trains, Slow Shutter, Taxis, Streets of Kolkata, Shantiniketan)
+│                   └── each album opens a photo wall (hover to zoom, click for full screen)
+│                       with its own background: taxi yellow, train beige, light trails…
+├── Photo Walks   → "Kolkata, honestly." (to be reworked)
 ├── Portfolio     → coming soon
 └── Shop          → coming soon
 ```
