@@ -40,6 +40,9 @@ const SITE = {
 // "story" (optional) adds a Story button in full screen: the photo with your words beside it. One line, or a few:
 //   story: ["Why I took it.", "What happened just after."],
 // Photos without a story simply don't show the button.
+// "w" and "h" (pixel size) let the wall lay out before the photo loads; I fill them in when I add photos.
+// "private: true" keeps a photo in your files but never shows it on the site.
+// Rule: no children's faces without a parent's OK, no private homes, nothing that shows where you live.
 // "cover" = which photo (counting from 0) is shown on the album tile.
 const ALBUMS = [
   {
@@ -50,16 +53,16 @@ const ALBUMS = [
     blurb: "Local trains, long-distance trains, stations, the people waiting on platforms.",
     cover: 0,
     photos: [
-      { src: "images/trains-01.jpg", shutter: "1/20s", aperture: "f/1.9", iso: "160", year: "2026", alt: "Through the window of a yellow coach" },
-      { src: "images/trains-02.jpg", shutter: "1/8s", aperture: "f/1.9", iso: "500", year: "2024", alt: "A man looks back as a train blurs past the platform at night" },
-      { src: "images/trains-03.jpg", alt: "A silhouette standing in a lit train doorway" },
-      { src: "images/trains-04.jpg", shutter: "1/20s", aperture: "f/1.9", iso: "2156", year: "2025", alt: "Faces pressed behind the barred windows of a crowded train" },
-      { src: "images/trains-05.jpg", shutter: "1/15s", aperture: "f/6.3", iso: "80", year: "2025", alt: "Black and white: a train rushing past with someone at the door" },
-      { src: "images/trains-06.jpg", shutter: "1/800s", aperture: "f/1.9", iso: "125", year: "2026", alt: "Orange light falling across coach windows" },
-      { src: "images/trains-07.jpg", shutter: "1/12s", aperture: "f/2.2", iso: "2500", year: "2024", alt: "Sweeping the platform as a train streaks by" },
-      { src: "images/trains-08.jpg", shutter: "1/180s", aperture: "f/1.7", iso: "100", year: "2022", alt: "A dark coach corridor with a red-lit window at the end" },
-      { src: "images/trains-09.jpg", shutter: "1/6s", aperture: "f/1.9", iso: "125", year: "2025", alt: "Black and white: a crowded platform at night" },
-      { src: "images/trains-10.jpg", shutter: "1/200s", aperture: "f/1.9", iso: "50", year: "2026", alt: "A single lit window in the dark" },
+      { src: "images/trains-01.jpg", w: 1483, h: 2000, shutter: "1/20s", aperture: "f/1.9", iso: "160", year: "2026", alt: "Through the window of a yellow coach" },
+      { src: "images/trains-02.jpg", w: 2000, h: 1500, shutter: "1/8s", aperture: "f/1.9", iso: "500", year: "2024", alt: "A man looks back as a train blurs past the platform at night" },
+      { src: "images/trains-03.jpg", w: 1068, h: 1043, alt: "A silhouette standing in a lit train doorway" },
+      { src: "images/trains-04.jpg", w: 2000, h: 2000, shutter: "1/20s", aperture: "f/1.9", iso: "2156", year: "2025", alt: "Faces pressed behind the barred windows of a crowded train" },
+      { src: "images/trains-05.jpg", w: 2000, h: 1124, shutter: "1/15s", aperture: "f/6.3", iso: "80", year: "2025", alt: "Black and white: a train rushing past with someone at the door" },
+      { src: "images/trains-06.jpg", w: 2000, h: 1994, shutter: "1/800s", aperture: "f/1.9", iso: "125", year: "2026", alt: "Orange light falling across coach windows" },
+      { src: "images/trains-07.jpg", w: 1999, h: 2000, shutter: "1/12s", aperture: "f/2.2", iso: "2500", year: "2024", alt: "Sweeping the platform as a train streaks by" },
+      { src: "images/trains-08.jpg", w: 1126, h: 2000, shutter: "1/180s", aperture: "f/1.7", iso: "100", year: "2022", alt: "A dark coach corridor with a red-lit window at the end" },
+      { src: "images/trains-09.jpg", w: 2000, h: 906, shutter: "1/6s", aperture: "f/1.9", iso: "125", year: "2025", alt: "Black and white: a crowded platform at night" },
+      { src: "images/trains-10.jpg", w: 1498, h: 2000, shutter: "1/200s", aperture: "f/1.9", iso: "50", year: "2026", alt: "A single lit window in the dark" },
     ],
   },
   {
@@ -69,12 +72,12 @@ const ALBUMS = [
     blurb: "Long exposures. Light that moves, colours that smear, a city that won't sit still.",
     cover: 0,
     photos: [
-      { src: "images/slow-shutter-01.jpg", shutter: "1/6s", aperture: "f/7.1", iso: "400", year: "2023", alt: "A porter balancing a basket on his head as a blue and yellow bus streaks past" },
-      { src: "images/slow-shutter-02.jpg", shutter: "1/20s", aperture: "f/5", iso: "800", year: "2025", alt: "Black and white: a cycle rickshaw sharp against a blurred street" },
-      { src: "images/slow-shutter-03.jpg", shutter: "1/2s", aperture: "f/2.2", iso: "50", year: "2025", alt: "People running toward blue lights, their shadows stretched long" },
-      { src: "images/slow-shutter-04.jpg", shutter: "1/7s", aperture: "f/4", iso: "640", year: "2023", alt: "A woman blurs past the window of a Ladies coach, in sepia" },
-      { src: "images/slow-shutter-05.jpg", shutter: "1/8s", aperture: "f/5.6", iso: "1600", year: "2025", alt: "Black and white: a cyclist in focus while the street streaks behind him" },
-      { src: "images/slow-shutter-06.jpg", shutter: "1/6s", aperture: "f/2.2", iso: "200", year: "2024", alt: "A night street of blurred passers-by and a dog asleep on the pavement" },
+      { src: "images/slow-shutter-01.jpg", w: 2000, h: 1334, shutter: "1/6s", aperture: "f/7.1", iso: "400", year: "2023", alt: "A porter balancing a basket on his head as a blue and yellow bus streaks past" },
+      { src: "images/slow-shutter-02.jpg", w: 2000, h: 1125, shutter: "1/20s", aperture: "f/5", iso: "800", year: "2025", alt: "Black and white: a cycle rickshaw sharp against a blurred street" },
+      { src: "images/slow-shutter-03.jpg", w: 2000, h: 1129, shutter: "1/2s", aperture: "f/2.2", iso: "50", year: "2025", alt: "People running toward blue lights, their shadows stretched long" },
+      { src: "images/slow-shutter-04.jpg", w: 2000, h: 2000, shutter: "1/7s", aperture: "f/4", iso: "640", year: "2023", alt: "A woman blurs past the window of a Ladies coach, in sepia" },
+      { src: "images/slow-shutter-05.jpg", w: 2000, h: 1124, shutter: "1/8s", aperture: "f/5.6", iso: "1600", year: "2025", alt: "Black and white: a cyclist in focus while the street streaks behind him" },
+      { src: "images/slow-shutter-06.jpg", w: 2000, h: 1129, shutter: "1/6s", aperture: "f/2.2", iso: "200", year: "2024", alt: "A night street of blurred passers-by and a dog asleep on the pavement" },
     ],
   },
   {

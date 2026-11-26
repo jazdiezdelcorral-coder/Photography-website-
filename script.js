@@ -5,6 +5,9 @@ const settings = p => [p.shutter, p.aperture, p.iso && "ISO " + p.iso, p.focal, 
 const pad = n => String(n).padStart(2, "0");
 const page = document.body.dataset.page;
 
+// Photos marked private: true in data.js stay in your files but never appear anywhere on the site
+if (typeof ALBUMS !== "undefined") ALBUMS.forEach(a => { a.photos = a.photos.filter(p => !p.private); });
+
 // ---------- Header + footer (same on every page, built from SITE in data.js) ----------
 const NAV = [["photos", "photos.html", "Photos"], ["walks", "walks.html", "Photo Walks"], ["portfolio", "portfolio.html", "Portfolio"], ["shop", "shop.html", "Shop"]];
 const header = $(".site-header");
@@ -154,10 +157,18 @@ const canHover = matchMedia("(hover: hover) and (pointer: fine)");
 let wallUnzoom = () => {};
 window.addEventListener("scroll", () => wallUnzoom(), { passive: true });
 
+// A photo's shape (width ÷ height) before it loads, so the wall doesn't jump while photos arrive:
+// from w/h in data.js, or from the size in a placeholder's address; otherwise a guess, fixed on load.
+function photoRatio(p) {
+  if (p.w && p.h) return p.w / p.h;
+  const m = String(p.src).match(/\/(\d+)\/(\d+)(?:\?|$)/);
+  return m ? m[1] / m[2] : 1.5;
+}
+
 function buildWall(wall, photos, items) {
   wall.innerHTML = photos.map((p, j) => `
-    <figure data-i="${j}" tabindex="0" role="button" aria-label="Open ${esc(p.title || p.alt || "photo")}">
-      <i></i><img src="${esc(p.src)}" alt="${esc(p.alt || p.title || "")}" ${j > 11 ? 'loading="lazy"' : ""}>
+    <figure data-i="${j}" tabindex="0" role="button" aria-label="Open ${esc(p.title || p.alt || "photo")}" style="--r:${photoRatio(p).toFixed(4)}">
+      <i></i><img src="${esc(p.src)}" alt="${esc(p.alt || p.title || "")}" decoding="async" ${j > 11 ? 'loading="lazy"' : ""}>
       ${p.title ? `<figcaption>${esc(p.title)}</figcaption>` : ""}
     </figure>`).join("");
 

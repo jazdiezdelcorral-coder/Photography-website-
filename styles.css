@@ -447,3 +447,13 @@ h3.sub { font-size: 1.9rem; margin: 4rem 0 1.25rem; }
   .album-bar { margin-top: 1.5rem; }
   .album-nav a:first-child, .album-nav a:last-child { font-size: .7rem; }
 }
+
+/* ---------- Small things that make the site smoother ---------- */
+/* "Skip to content" for keyboard users: invisible until tabbed to */
+.skip-link { position: absolute; left: 1rem; top: -4rem; z-index: 200; background: var(--accent); color: var(--accent-ink); padding: .6rem 1rem; font-size: .85rem; }
+.skip-link:focus { top: 1rem; }
+.not-found-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+/* Visitors who ask their device for less motion get no zoom or fade animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
