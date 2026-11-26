@@ -10,8 +10,29 @@ const NAV = [["photos", "photos.html", "Photos"], ["walks", "walks.html", "Photo
 const header = $(".site-header");
 header.innerHTML = `
   <a href="index.html" class="logo">${esc(SITE.name)}</a>
-  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-  <nav class="nav">${NAV.map(([k, href, label]) => `<a href="${href}"${k === page ? ' class="current"' : ""}>${label}</a>`).join("")}</nav>`;
+  <div class="header-tools">
+    <nav class="nav">${NAV.map(([k, href, label]) => `<a href="${href}"${k === page ? ' class="current"' : ""}>${label}</a>`).join("")}</nav>
+    <button class="theme-toggle" type="button"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg></button>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>`;
+
+// ---------- Dark / light switch ----------
+// Dark is the default. The choice is remembered in this visitor's own browser only
+// (a one-line script in each page's <head> applies it before the page draws).
+const themeBtn = $(".theme-toggle");
+const isLight = () => document.documentElement.dataset.theme === "light";
+const labelTheme = () => {
+  const text = isLight() ? "Switch to dark" : "Switch to light";
+  themeBtn.setAttribute("aria-label", text);
+  themeBtn.title = text;
+};
+themeBtn.addEventListener("click", () => {
+  if (isLight()) delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = "light";
+  try { localStorage.setItem("aupa-theme", isLight() ? "light" : "dark"); } catch (e) {}
+  labelTheme();
+});
+labelTheme();
 
 const waLink = "https://wa.me/" + SITE.whatsapp;
 $(".site-footer").innerHTML = `
@@ -20,11 +41,13 @@ $(".site-footer").innerHTML = `
     <a href="${esc(SITE.instagram)}" target="_blank" rel="noopener">Instagram</a>
     <a href="${waLink}" target="_blank" rel="noopener">WhatsApp</a>
   </div>
-  <p>&copy; ${new Date().getFullYear()} ${esc(SITE.name)}. All photos are my own.</p>`;
+  <p>&copy; ${new Date().getFullYear()} ${esc(SITE.name)}. All photos are my own. · <a href="privacy.html" class="footer-privacy">Privacy</a></p>`;
 
 $$("[data-site]").forEach(el => {
   const k = el.dataset.site;
-  if (k === "whatsapp") el.href = waLink; else el.textContent = SITE[k];
+  if (k === "whatsapp") el.href = waLink;
+  else if (k === "email") { el.textContent = SITE.email; if (el.tagName === "A") el.href = "mailto:" + SITE.email; }
+  else el.textContent = SITE[k];
 });
 $$("form[action^='mailto:']").forEach(f => (f.action = "mailto:" + SITE.email));
 if (page !== "home") document.title = document.title + " — " + SITE.name;
@@ -72,29 +95,56 @@ if (aboutPop) {
   aboutPop.addEventListener("click", e => { if (e.target === aboutPop) aboutPop.close(); }); // tap outside to close
 }
 
-// ---------- Lightbox ----------
+// ---------- Lightbox (full screen) ----------
+// Items: { src, alt, caption, story }. "story" is the HTML for the Story panel; photos without one
+// show no Story button. Story mode stays on while moving between photos.
 const lb = $(".lightbox");
-let lbItems = [], lbIndex = 0;
+let lbItems = [], lbIndex = 0, lbStoryMode = false;
+if (lb) {
+  lb.insertAdjacentHTML("beforeend", `<div class="lb-text" aria-live="polite"></div><button class="lb-story" type="button" hidden>Story</button>`);
+}
 function lbShow(i) {
   lbIndex = (i + lbItems.length) % lbItems.length;
   const it = lbItems[lbIndex];
   $("img", lb).src = it.src;
   $("img", lb).alt = it.alt || "";
   $("figcaption", lb).innerHTML = it.caption || "";
+  $(".lb-text", lb).innerHTML = it.story || "";
+  $(".lb-text", lb).scrollTop = 0;
+  lb.scrollTop = 0;
+  lb.classList.toggle("has-story", !!it.story);
+  lb.classList.toggle("story-on", lbStoryMode);
+  const btn = $(".lb-story", lb);
+  btn.hidden = !it.story;
+  btn.textContent = lbStoryMode ? "Photo" : "Story";
+  btn.setAttribute("aria-pressed", String(lbStoryMode));
 }
-function lbOpen(items, i) { lbItems = items; lbShow(i); lb.hidden = false; document.body.style.overflow = "hidden"; }
+function lbOpen(items, i) { lbItems = items; lbStoryMode = false; lbShow(i); lb.hidden = false; document.body.style.overflow = "hidden"; }
 function lbClose() { lb.hidden = true; document.body.style.overflow = ""; }
 if (lb) {
   $(".lb-close", lb).onclick = lbClose;
   $(".lb-prev", lb).onclick = () => lbShow(lbIndex - 1);
   $(".lb-next", lb).onclick = () => lbShow(lbIndex + 1);
+  $(".lb-story", lb).onclick = () => { lbStoryMode = !lbStoryMode; lbShow(lbIndex); };
   lb.addEventListener("click", e => { if (e.target === lb) lbClose(); });
   document.addEventListener("keydown", e => {
     if (lb.hidden) return;
     if (e.key === "Escape") lbClose();
     if (e.key === "ArrowLeft") lbShow(lbIndex - 1);
     if (e.key === "ArrowRight") lbShow(lbIndex + 1);
+    if ((e.key === "s" || e.key === "S") && lbItems[lbIndex]?.story) { lbStoryMode = !lbStoryMode; lbShow(lbIndex); }
   });
+}
+
+// The Story panel for one photo: title, place and year, the story itself, the camera settings
+function storyHtml(p, fallbackTitle) {
+  if (!p.story) return "";
+  const paras = Array.isArray(p.story) ? p.story : [p.story];
+  const where = [p.place, p.year].filter(Boolean).join(", ");
+  return `<h3>${esc(p.title || fallbackTitle || "")}</h3>
+    ${where ? `<p class="where">${esc(where)}</p>` : ""}
+    ${paras.map(t => `<p>${esc(t)}</p>`).join("")}
+    ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}`;
 }
 
 // ---------- Photo wall (album page) ----------
@@ -253,6 +303,7 @@ if (albumPhotos) {
         ${p.place || p.year ? `<span>${esc([p.place, p.year].filter(Boolean).join(", "))}</span>` : ""}
         ${settings(p) ? `<span class="exif">${esc(settings(p))}</span>` : ""}
         ${p.note ? `<span class="note">${esc(p.note)}</span>` : ""}`,
+      story: storyHtml(p, a.title),
     }));
     buildWall(albumPhotos, a.photos, items);
 

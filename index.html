@@ -4,9 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Photography & Photo Walks</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>try { if (localStorage.getItem("aupa-theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}</script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
@@ -41,6 +39,7 @@
         <input type="email" id="letter-email" name="email_address" required placeholder="you@email.com" autocomplete="email">
         <button type="submit" class="btn" id="letter-submit">Subscribe</button>
         <p class="letter-small" id="letter-small">Just your email. Never shared. Unsubscribe anytime.</p>
+        <p class="letter-small"><a href="privacy.html" class="footer-privacy">How your email is handled</a></p>
       </form>
     </section>
   </main>

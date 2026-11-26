@@ -37,6 +37,9 @@ const SITE = {
 // To add a photo: put the file in images/ and add a line like
 //   { src: "images/howrah.jpg", title: "Howrah, 6am", shutter: "1/250s", aperture: "f/8", iso: "200", focal: "35mm", place: "Howrah", year: "2026" },
 // Only src is required. "title" shows on hover and in full screen; "alt" describes the photo for screen readers.
+// "story" (optional) adds a Story button in full screen: the photo with your words beside it. One line, or a few:
+//   story: ["Why I took it.", "What happened just after."],
+// Photos without a story simply don't show the button.
 // "cover" = which photo (counting from 0) is shown on the album tile.
 const ALBUMS = [
   {
