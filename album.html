@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Album</title>
+  <meta name="robots" content="noindex, nofollow"><!-- hidden from search until launch: see README -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://picsum.photos; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-jKLbLt0wySZ2p9erJ4RCadIIgijGE90O+/y/H4wE+oo='; form-action 'self' https://app.kit.com mailto:; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Aúpa: photographs of Kolkata's trains, taxis and streets, and honest photo walks through the city.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Album · Aúpa">
+  <meta property="og:description" content="Aúpa: photographs of Kolkata's trains, taxis and streets, and honest photo walks through the city.">
+  <meta property="og:url" content="https://aupazalba.com/album">
+  <meta property="og:image" content="https://aupazalba.com/images/trains-01.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>try { if (localStorage.getItem("aupa-theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="photos" class="solid-header album-page">
+  <div class="album-bg" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"></header>
+
+  <main id="main" class="page">
+    <section class="page-head">
+      <p class="eyebrow"><a href="photos.html">Photos</a> / <span id="album-num"></span></p>
+      <p class="board" id="album-board" hidden></p>
+      <h1 id="album-title">Album</h1>
+      <p class="lede" id="album-blurb"></p>
+      <p class="meta" id="album-count"></p>
+    </section>
+    <div class="livery" aria-hidden="true"><span></span><span></span></div>
+    <nav class="album-bar" aria-label="Switch album">
+      <button class="bar-arrow prev" aria-label="Scroll albums left" hidden>&#8249;</button>
+      <div class="bar-track" id="album-bar"></div>
+      <button class="bar-arrow next" aria-label="Scroll albums right" hidden>&#8250;</button>
+    </nav>
+    <section class="section">
+      <div class="wall" id="album-photos"></div>
+      <nav class="album-nav" id="album-nav"></nav>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <div class="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous photo">&#8249;</button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+    <button class="lb-next" aria-label="Next photo">&#8250;</button>
+  </div>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

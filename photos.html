@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photos — Albums</title>
+  <meta name="robots" content="noindex, nofollow"><!-- hidden from search until launch: see README -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://picsum.photos; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-jKLbLt0wySZ2p9erJ4RCadIIgijGE90O+/y/H4wE+oo='; form-action 'self' https://app.kit.com mailto:; base-uri 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Aúpa: photographs of Kolkata's trains, taxis and streets, and honest photo walks through the city.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Photos — Albums · Aúpa">
+  <meta property="og:description" content="Aúpa: photographs of Kolkata's trains, taxis and streets, and honest photo walks through the city.">
+  <meta property="og:url" content="https://aupazalba.com/photos">
+  <meta property="og:image" content="https://aupazalba.com/images/trains-01.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>try { if (localStorage.getItem("aupa-theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="photos" class="solid-header">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"></header>
+
+  <main id="main" class="page">
+    <section class="page-head">
+      <p class="eyebrow">Photos</p>
+      <h1>Albums</h1>
+      <p class="lede">Each album is one thing I keep photographing. Black &amp; white and colour, mixed.</p>
+    </section>
+    <section class="section">
+      <div class="albums" id="album-list"></div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
