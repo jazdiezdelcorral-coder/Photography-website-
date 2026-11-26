@@ -80,8 +80,7 @@ if (lb) {
 
 // ---------- Photo wall (album page) ----------
 // Rows of photos that each keep their own shape. With a mouse: hovering zooms a photo,
-// sized and anchored so it always stays fully on screen. On a phone: press and hold a photo
-// to pop it up, keep holding and slide to pop up others; a quick tap opens full screen.
+// sized and anchored so it always stays fully on screen. On touch: tap opens full screen.
 const canHover = matchMedia("(hover: hover) and (pointer: fine)");
 let wallUnzoom = () => {};
 window.addEventListener("scroll", () => wallUnzoom(), { passive: true });
@@ -111,8 +110,8 @@ function buildWall(wall, photos, items) {
     const barStuck = barBox && barBox.top <= headerBottom + 1;
     const m = 16, top = (barStuck ? barBox.bottom : headerBottom) + m;
     const vw = document.documentElement.clientWidth, vh = window.innerHeight;
-    // as big as possible (2x with a mouse, more on a small phone screen), but never bigger than the visible screen
-    const z = Math.min(canHover.matches ? 2 : 2.6, (vw - 2 * m) / r.width, (vh - top - m) / r.height);
+    // as big as possible up to 2x, but never bigger than the visible screen
+    const z = Math.min(2, (vw - 2 * m) / r.width, (vh - top - m) / r.height);
     if (z < 1.1) return; // already big, no point zooming
     // choose the zoom anchor so the enlarged photo stays inside the screen
     const anchor = (start, size, min, max) => {
@@ -127,19 +126,6 @@ function buildWall(wall, photos, items) {
   }
   wallUnzoom = unzoom;
 
-  // Phones get a one-line hint above the wall
-  if (!canHover.matches && !wall.previousElementSibling?.classList.contains("wall-hint")) {
-    wall.insertAdjacentHTML("beforebegin", `<p class="wall-hint">Press and hold a photo to pop it up. Tap to open it.</p>`);
-  }
-
-  let hold = null, peeking = false, swallowClick = false;
-  const endHold = () => {
-    if (!hold) return;
-    clearTimeout(hold.timer);
-    if (peeking) { swallowClick = true; unzoom(); setTimeout(() => (swallowClick = false), 400); }
-    hold = null; peeking = false;
-  };
-
   $$("figure", wall).forEach(fig => {
     const img = $("img", fig);
     const ready = () => {
@@ -152,36 +138,10 @@ function buildWall(wall, photos, items) {
       img.addEventListener("error", () => (fig.hidden = true), { once: true }); // broken link: hide it
     }
     const open = () => { unzoom(); lbOpen(items, +fig.dataset.i); };
-    fig.addEventListener("click", e => { if (swallowClick) { e.preventDefault(); return; } open(); });
+    fig.addEventListener("click", open);
     fig.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
     fig.addEventListener("mouseenter", () => canHover.matches && zoom(fig));
-    fig.addEventListener("mouseleave", () => canHover.matches && unzoom());
-
-    // Touch: hold ~0.3s to pop up. Moving before that means the person is scrolling, so nothing happens.
-    // (A touch keeps sending its events to the photo it started on, so these handlers follow the finger.)
-    fig.addEventListener("touchstart", e => {
-      if (e.touches.length !== 1) { endHold(); return; }
-      const t = e.touches[0];
-      hold = { x: t.clientX, y: t.clientY, timer: setTimeout(() => {
-        zoom(fig);
-        peeking = true;
-        navigator.vibrate?.(8); // a tiny tick on phones that support it
-      }, 300) };
-    }, { passive: true });
-    fig.addEventListener("touchmove", e => {
-      if (!hold) return;
-      const t = e.touches[0];
-      if (!peeking) {
-        if (Math.hypot(t.clientX - hold.x, t.clientY - hold.y) > 10) { clearTimeout(hold.timer); hold = null; }
-        return;
-      }
-      e.preventDefault(); // while holding, sliding moves between photos instead of scrolling the page
-      const under = document.elementFromPoint(t.clientX, t.clientY)?.closest(".wall figure");
-      if (under && under !== current && wall.contains(under)) zoom(under);
-    }, { passive: false });
-    fig.addEventListener("touchend", endHold);
-    fig.addEventListener("touchcancel", endHold);
-    fig.addEventListener("contextmenu", e => e.preventDefault()); // no "save image" menu on a long press
+    fig.addEventListener("mouseleave", unzoom);
   });
 }
 
