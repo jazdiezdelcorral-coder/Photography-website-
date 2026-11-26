@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
 # Websites the site may load things from or post a form to. Anything else fails the check.
-ALLOWED_HOSTS = {"app.kit.com", "kit.com", "wa.me", "instagram.com", "www.instagram.com", "docs.github.com"}
+ALLOWED_HOSTS = {"aupazalba.com", "www.aupazalba.com", "app.kit.com", "kit.com", "wa.me", "instagram.com", "www.instagram.com", "docs.github.com"}
 # Allowed for now with a warning: sample photos until real ones replace them.
 TEMPORARY_HOSTS = {"picsum.photos"}
 # Addresses that are only written in comments or as examples, not loaded.
@@ -102,7 +102,24 @@ def check_files_exist():
             errors.append(f"missing file: {ref}")
 
 
+def check_headers():
+    """_headers holds the security settings Cloudflare Pages sends with every page."""
+    if not os.path.exists("_headers"):
+        errors.append("_headers is missing: the site would go live without its security settings")
+        return
+    text = open("_headers", encoding="utf-8").read()
+    for needed in ("Strict-Transport-Security", "X-Content-Type-Options", "Content-Security-Policy", "frame-ancestors"):
+        if needed not in text:
+            errors.append(f"_headers: the {needed} setting is missing")
+    for line in text.splitlines():
+        if line.strip() and not line.startswith("#") and not line.startswith("/") and not re.match(r"^  [A-Za-z-]+: \S", line):
+            errors.append(f"_headers: this line isn't in the right shape: {line[:60]}")
+    if "X-Robots-Tag: noindex" in text:
+        warnings.append("_headers: still hidden from Google (remove X-Robots-Tag on launch day)")
+
+
 check_images()
+check_headers()
 check_text_and_hosts()
 check_files_exist()
 

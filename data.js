@@ -7,6 +7,7 @@
 // ---------- YOU ----------
 const SITE = {
   name: "Aúpa",
+  url: "https://aupazalba.com", // your domain
   tagline: "20. Kolkata. Always carrying a camera.",
   // Shown when someone taps your name on the home page. One line per paragraph.
   about: [

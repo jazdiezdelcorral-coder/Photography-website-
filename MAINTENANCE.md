@@ -21,6 +21,5 @@ A short list. Tick it off; it takes minutes.
 - [ ] Real email, Instagram and WhatsApp in `data.js`, and the email in `.well-known/security.txt`.
 - [ ] Real photos everywhere: the check should show no "sample photos" warnings.
 - [ ] Remove `picsum.photos` from the security line at the top of each page.
-- [ ] Move to a host that allows security headers (Netlify or Cloudflare Pages) and connect your domain.
-- [ ] Remove the `noindex` line from every page and delete `robots.txt`, so Google can find you.
+- [ ] Make Google able to find you: remove the `noindex` line from every page, the `X-Robots-Tag` line in `_headers`, and delete `robots.txt`.
 - [ ] Connect the letter: put your Kit form number in `data.js`.

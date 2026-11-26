@@ -30,7 +30,13 @@ Run `python3 tools/check-site.py`. It fails if a photo still has hidden data (li
 - A security rule on every page: only this site's own scripts, fonts and photos load (plus Kit for the letter).
 - No cookies, no tracking; fonts served from this site.
 - `.well-known/security.txt` so people can report problems.
-- Still to come with the launch host (Netlify or Cloudflare): HTTPS-only and other security headers, which GitHub Pages can't set. Link previews with a picture also need the real domain (`og:image` needs a full address).
+- On Cloudflare Pages, `_headers` adds HTTPS-only and the other security headers. Shared links show a preview with a photo (`og:image`).
+
+## Hosting: aupazalba.com on Cloudflare Pages
+- Cloudflare Pages publishes this repo's `main` branch. Every change merged into `main` is live in about a minute.
+- Settings: Framework preset **None**, build command **empty**, output directory **`/`**.
+- `_headers` holds the security settings Cloudflare sends with every page (HTTPS-only, security rules, hidden from Google until launch).
+- `404.html` is shown for pages that don't exist.
 
 ## Launch day
 Follow the "On launch day" list in `MAINTENANCE.md`.
