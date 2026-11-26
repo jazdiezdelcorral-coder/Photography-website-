@@ -60,12 +60,12 @@ const ALBUMS = [
     blurb: "Long exposures. Light that moves, colours that smear, a city that won't sit still.",
     cover: 0,
     photos: [
-      { src: "https://picsum.photos/id/1043/900/600", title: "Long exposure, Hooghly", shutter: "15s", aperture: "f/16", iso: "100", focal: "24mm", place: "Prinsep Ghat", year: "2025" },
-      { src: "https://picsum.photos/id/1056/600/900", title: "Last tram home", shutter: "1/4s", aperture: "f/8", iso: "200", year: "2025" },
-      { src: "https://picsum.photos/id/1044/1600/900", title: "Traffic, Park Circus", shutter: "2s", aperture: "f/11", iso: "100", year: "2026" },
-      { src: "https://picsum.photos/id/1035/1200/800", title: "Rain, headlights", shutter: "1s", aperture: "f/8", iso: "100", year: "2026" },
-      { src: "https://picsum.photos/id/1069/1000/1000", title: "Spin", shutter: "1/2s", aperture: "f/5.6", iso: "100" },
-      { src: "https://picsum.photos/id/1074/1800/800", title: "Bridge lights", shutter: "8s", aperture: "f/14", iso: "100" },
+      { src: "images/slow-shutter-01.jpg", shutter: "1/6s", aperture: "f/7.1", iso: "400", year: "2023", alt: "A porter balancing a basket on his head as a blue and yellow bus streaks past" },
+      { src: "images/slow-shutter-02.jpg", shutter: "1/20s", aperture: "f/5", iso: "800", year: "2025", alt: "Black and white: a cycle rickshaw sharp against a blurred street" },
+      { src: "images/slow-shutter-03.jpg", shutter: "1/2s", aperture: "f/2.2", iso: "50", year: "2025", alt: "People running toward blue lights, their shadows stretched long" },
+      { src: "images/slow-shutter-04.jpg", shutter: "1/7s", aperture: "f/4", iso: "640", year: "2023", alt: "A woman blurs past the window of a Ladies coach, in sepia" },
+      { src: "images/slow-shutter-05.jpg", shutter: "1/8s", aperture: "f/5.6", iso: "1600", year: "2025", alt: "Black and white: a cyclist in focus while the street streaks behind him" },
+      { src: "images/slow-shutter-06.jpg", shutter: "1/6s", aperture: "f/2.2", iso: "200", year: "2024", alt: "A night street of blurred passers-by and a dog asleep on the pavement" },
     ],
   },
   {
