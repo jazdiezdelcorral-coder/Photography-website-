@@ -43,6 +43,25 @@ onScroll();
 const toggle = $(".nav-toggle"), nav = $(".nav");
 toggle.addEventListener("click", () => toggle.setAttribute("aria-expanded", nav.classList.toggle("open")));
 
+// ---------- "Aúpa's letter" sign-up (home page) ----------
+// The site can't store emails itself: the form sends them straight to Kit, which keeps the list,
+// sends the confirmation email and handles unsubscribing.
+const letterForm = $("#letter-form");
+if (letterForm) {
+  const nl = SITE.newsletter || {};
+  $("#letter-name").textContent = nl.name || "Newsletter";
+  $("#letter-pitch").textContent = nl.pitch || "";
+  const id = String(nl.kitFormId || "").trim();
+  if (/^\d+$/.test(id)) {
+    letterForm.action = `https://app.kit.com/forms/${id}/subscriptions`;
+  } else {
+    // Not connected yet: don't let anyone type an email that would go nowhere
+    $("#letter-email").disabled = true;
+    $("#letter-submit").disabled = true;
+    $("#letter-small").textContent = "Sign-ups open soon.";
+  }
+}
+
 // ---------- "Who's this?" pop-up (tap the name on the home page) ----------
 const aboutPop = $("#about-pop");
 if (aboutPop) {

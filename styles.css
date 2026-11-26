@@ -97,6 +97,23 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; }
 .about-close:hover { color: var(--fg); }
 .about-pop { position: fixed; }
 
+/* Aúpa's letter: newsletter sign-up on the home page */
+.letter { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 4rem; align-items: center; padding-top: 0; }
+.section:has(+ .letter) { padding-bottom: 3rem; }
+.letter-text, .letter-form { min-width: 0; }
+.letter h2 { margin-bottom: .5rem; }
+.letter-pitch { color: var(--soft); max-width: 46ch; }
+.letter-form { display: grid; grid-template-columns: 1fr auto; gap: .75rem; }
+.letter-form input {
+  min-width: 0; background: var(--surface); border: 1px solid var(--line); color: var(--fg);
+  padding: .8rem 1rem; font: inherit; font-size: 1rem;
+}
+.letter-form input:focus { outline: none; border-color: var(--accent); }
+.letter-form input:disabled, .letter-form .btn:disabled { opacity: .5; cursor: not-allowed; }
+.letter-form .btn:disabled:hover { background: transparent; color: var(--accent); }
+.letter-small { grid-column: 1 / -1; color: var(--muted); font-size: .8rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
 .home-tiles { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
 .home-tile { padding: 2rem 1.5rem 2.5rem; border-right: 1px solid var(--line); transition: background .25s; }
 .home-tile:last-child { border-right: 0; }
@@ -350,6 +367,9 @@ h3.sub { font-size: 1.9rem; margin: 4rem 0 1.25rem; }
   .home-tile { border-bottom: 1px solid var(--line); }
   .home-tile:nth-child(2n) { border-right: 0; }
   .home-tile h2 { font-size: 1.7rem; }
+  .letter { grid-template-columns: 1fr; gap: 1.25rem; }
+  .letter-form { grid-template-columns: 1fr; }
+  .letter-form .btn { justify-self: start; }
   .about-pop { padding: 2rem 1.25rem 1.5rem; }
   .about-pop h2 { font-size: 2.4rem; }
   .incl-grid, .story, .contact-form .row { grid-template-columns: 1fr; }

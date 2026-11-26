@@ -17,6 +17,12 @@ const SITE = {
   email: "you@example.com",
   instagram: "https://instagram.com/",
   whatsapp: "910000000000", // 91 + your number, no spaces or +
+  // The free email letter (sign-up box on the home page). Emails are collected and sent by Kit (kit.com).
+  newsletter: {
+    name: "Aúpa's letter",
+    pitch: "Every two weeks: one photo I love and the (mostly true) story behind it.",
+    kitFormId: "", // paste your Kit form's number here; until then the box says "Sign-ups open soon"
+  },
 };
 
 // ---------- ALBUMS (Photos page) ----------
