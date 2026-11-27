@@ -32,10 +32,10 @@ Run `python3 tools/check-site.py`. It fails if a photo still has hidden data (li
 - `.well-known/security.txt` so people can report problems.
 - On Cloudflare Pages, `_headers` adds HTTPS-only and the other security headers. Shared links show a preview with a photo (`og:image`).
 
-## Hosting: aupazalba.com on Cloudflare Pages
-- Cloudflare Pages publishes this repo's `main` branch. Every change merged into `main` is live in about a minute.
-- Settings: Framework preset **None**, build command **empty**, output directory **`/`**.
-- `_headers` holds the security settings Cloudflare sends with every page (HTTPS-only, security rules, hidden from Google until launch).
+## Hosting: aupazalba.com on Cloudflare
+- Cloudflare publishes this repo's `main` branch (Create app → Import a repository). Every change merged into `main` is live in about a minute.
+- `wrangler.jsonc` tells Cloudflare the site is plain files (no build step); `.assetsignore` keeps non-site files (this README, `tools/`, settings) private.
+- `_headers` holds the security settings sent with every page (HTTPS-only, security rules, hidden from Google until launch).
 - `404.html` is shown for pages that don't exist.
 
 ## Launch day

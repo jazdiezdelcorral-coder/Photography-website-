@@ -1,0 +1,10 @@
+# Files in the repo that are NOT part of the public website
+.git
+.wrangler
+node_modules
+tools
+README.md
+MAINTENANCE.md
+wrangler.jsonc
+.assetsignore
+.nojekyll
