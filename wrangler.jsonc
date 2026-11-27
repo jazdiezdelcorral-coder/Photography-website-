@@ -1,0 +1,11 @@
+// Cloudflare settings: the site is plain files, served as they are (no build step).
+// "Create app" → Import repository runs `npx wrangler deploy`, which reads this file.
+{
+  "name": "aupazalba",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
