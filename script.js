@@ -103,8 +103,16 @@ if (aboutPop) {
 // show no Story button. Story mode stays on while moving between photos.
 const lb = $(".lightbox");
 let lbItems = [], lbIndex = 0, lbStoryMode = false;
+// lbEdge(dir): called when you go past the last photo (dir 1) or before the first (dir -1).
+// The album page uses it to carry on into the next or previous album. Return true if handled.
+let lbEdge = null;
 if (lb) {
-  lb.insertAdjacentHTML("beforeend", `<div class="lb-text" aria-live="polite"></div><button class="lb-story" type="button" hidden>Story</button>`);
+  lb.insertAdjacentHTML("beforeend", `<div class="lb-text" aria-live="polite"></div><button class="lb-story" type="button" hidden>Story</button><p class="lb-album" aria-live="polite"></p>`);
+}
+function lbStep(d) {
+  const j = lbIndex + d;
+  if ((j < 0 || j >= lbItems.length) && lbEdge && lbEdge(d)) return;
+  lbShow(j);
 }
 function lbShow(i) {
   lbIndex = (i + lbItems.length) % lbItems.length;
@@ -126,15 +134,16 @@ function lbOpen(items, i) { lbItems = items; lbStoryMode = false; lbShow(i); lb.
 function lbClose() { lb.hidden = true; document.body.style.overflow = ""; }
 if (lb) {
   $(".lb-close", lb).onclick = lbClose;
-  $(".lb-prev", lb).onclick = () => lbShow(lbIndex - 1);
-  $(".lb-next", lb).onclick = () => lbShow(lbIndex + 1);
+  // The left and right sides of the screen are invisible buttons: tap the side to move
+  $(".lb-prev", lb).onclick = () => lbStep(-1);
+  $(".lb-next", lb).onclick = () => lbStep(1);
   $(".lb-story", lb).onclick = () => { lbStoryMode = !lbStoryMode; lbShow(lbIndex); };
   lb.addEventListener("click", e => { if (e.target === lb) lbClose(); });
   document.addEventListener("keydown", e => {
     if (lb.hidden) return;
     if (e.key === "Escape") lbClose();
-    if (e.key === "ArrowLeft") lbShow(lbIndex - 1);
-    if (e.key === "ArrowRight") lbShow(lbIndex + 1);
+    if (e.key === "ArrowLeft") lbStep(-1);
+    if (e.key === "ArrowRight") lbStep(1);
     if ((e.key === "s" || e.key === "S") && lbItems[lbIndex]?.story) { lbStoryMode = !lbStoryMode; lbShow(lbIndex); }
   });
 }
@@ -232,7 +241,7 @@ if (lb) {
   lb.addEventListener("touchend", e => {
     if (sx === null) return;
     const dx = e.changedTouches[0].clientX - sx; sx = null;
-    if (Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) lbStep(dx < 0 ? 1 : -1);
   });
 }
 
@@ -317,6 +326,8 @@ if (albumPhotos) {
       story: storyHtml(p, a.title),
     }));
     buildWall(albumPhotos, a.photos, items);
+    albumIndex = i; albumItems = items;
+    $(".lb-album", lb).textContent = a.title;
 
     // highlight the current album in the strip and bring it into view
     $$(".bar-pill[data-id]", track).forEach(p => {
@@ -334,7 +345,31 @@ if (albumPhotos) {
       ${next ? `<a href="#${encodeURIComponent(next.id)}">${esc(next.title)} →</a>` : "<span></span>"}`;
   }
 
-  window.addEventListener("hashchange", () => { renderAlbum(); window.scrollTo(0, 0); });
+  // Full screen carries on across albums: after the last Trains photo comes the first Slow Shutter
+  // photo, and so on; after the last album it goes back to the first. Going back works the same way.
+  let albumIndex = 0, albumItems = [], lbCarry = 0;
+  lbEdge = d => {
+    for (let k = 1; k < ALBUMS.length; k++) {
+      const n = (albumIndex + d * k + ALBUMS.length * k) % ALBUMS.length;
+      if (!ALBUMS[n].photos.length) continue; // skip empty albums
+      lbCarry = d;
+      location.hash = encodeURIComponent(ALBUMS[n].id);
+      return true;
+    }
+    return false; // only one album: wrap around inside it
+  };
+
+  window.addEventListener("hashchange", () => {
+    renderAlbum();
+    window.scrollTo(0, 0);
+    if (lbCarry && !lb.hidden) {
+      lbItems = albumItems; // keep full screen open (and Story on, if it was)
+      lbShow(lbCarry > 0 ? 0 : albumItems.length - 1);
+      const label = $(".lb-album", lb);
+      label.classList.remove("flash"); void label.offsetWidth; label.classList.add("flash");
+    }
+    lbCarry = 0;
+  });
   renderAlbum();
 }
 
